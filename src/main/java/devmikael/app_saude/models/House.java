@@ -18,6 +18,26 @@ public class House {
     @JoinColumn(name = "id_heath_agent")
     private HeathAgent heathAgent;
 
+    public int getId() {
+        return id;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public String getHouseOwner() {
+        return houseOwner;
+    }
+
+    public HeathAgent getHeathAgent() {
+        return heathAgent;
+    }
+
     public House() {}
 
     public House(float latitude, float longitude, String houseOwner, int id){

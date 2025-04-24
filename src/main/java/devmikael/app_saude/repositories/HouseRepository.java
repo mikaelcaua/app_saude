@@ -11,6 +11,6 @@ import devmikael.app_saude.models.House;
 public interface HouseRepository extends JpaRepository<House, Integer> {
 
     @Query(value = "SELECT * FROM house WHERE id_heath_agent = :heathAgentId", nativeQuery = true)
-    List<House> getAllHousesForOneAgent(@Param("heathAgentId") int heathAgentId);
+    List<House> getAllHousesForOneHeathAgent(@Param("heathAgentId") int heathAgentId);
 
 }

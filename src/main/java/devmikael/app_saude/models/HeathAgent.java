@@ -12,6 +12,14 @@ public class HeathAgent {
 
     private String name;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @OneToMany(mappedBy = "heathAgent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<House> houses;
 
