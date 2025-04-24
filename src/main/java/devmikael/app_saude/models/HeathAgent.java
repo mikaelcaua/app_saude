@@ -1,10 +1,21 @@
 package devmikael.app_saude.models;
 import java.util.List;
+import jakarta.persistence.*;
 
+
+@Entity
+@Table(name = "heath_agent")
 public class HeathAgent {
-    private String name;
-    private List<House> houses;
+
+    @Id
     private int id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "heathAgent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<House> houses;
+
+    public HeathAgent() {} 
 
     public HeathAgent(String name, List<House> houses, int id){
         this.name = name;

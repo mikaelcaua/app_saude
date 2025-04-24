@@ -1,5 +1,4 @@
 package devmikael.app_saude;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
