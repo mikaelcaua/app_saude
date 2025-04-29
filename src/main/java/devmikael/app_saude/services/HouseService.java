@@ -1,5 +1,6 @@
 package devmikael.app_saude.services;
 
+import devmikael.app_saude.exceptions.HouseNotFoundException;
 import devmikael.app_saude.models.House;
 import devmikael.app_saude.repositories.HouseRepository;
 import java.util.List;
@@ -19,7 +20,11 @@ public class HouseService {
     }
 
     public House getSpecificHouseInformations(int id) {
-        return houseRepository.getSpecificHouseInformations(id);
+        House house = houseRepository.getSpecificHouseInformations(id);
+        if (house == null) {
+            throw new HouseNotFoundException(id);
+        }
+        return house;
     }
 
     public boolean registerHouse(float latitude, float longitude, String houseOwner, Integer idHealthAgent) {
@@ -30,5 +35,4 @@ public class HouseService {
         int inserted = houseRepository.addHouse(latitude, longitude, houseOwner, idHealthAgent);
         return inserted > 0;
     }
-
 }
