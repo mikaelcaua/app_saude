@@ -1,6 +1,6 @@
 package devmikael.app_saude.dtos;
 
-public class LoginRequest {
+public class HeathAgentLoginRequestDTO {
     private String email;
     private String password;
     

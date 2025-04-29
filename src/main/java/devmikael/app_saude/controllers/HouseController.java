@@ -1,11 +1,11 @@
 package devmikael.app_saude.controllers;
-
 import org.springframework.web.bind.annotation.RestController;
 import devmikael.app_saude.dtos.HouseWithoutHeathAgentDTO;
 import devmikael.app_saude.services.HouseService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 public class HouseController {
@@ -27,5 +27,6 @@ public class HouseController {
     public HouseWithoutHeathAgentDTO getSpecificHouseInformations(@PathVariable int id) {
         return new HouseWithoutHeathAgentDTO(houseService.getSpecificHouseInformations(id));
     }
+    
 
 }
