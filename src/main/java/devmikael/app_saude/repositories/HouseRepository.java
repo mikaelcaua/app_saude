@@ -1,5 +1,4 @@
 package devmikael.app_saude.repositories;
-
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +9,11 @@ import devmikael.app_saude.models.House;
 @Repository
 public interface HouseRepository extends JpaRepository<House, Integer> {
 
-    @Query(value = "SELECT * FROM house WHERE id_heath_agent = :heathAgentId", nativeQuery = true)
-    List<House> getAllHousesForOneHeathAgent(@Param("heathAgentId") int heathAgentId);
+    @Query(nativeQuery =  true, value = "SELECT * FROM house")
+    List<House> getAllHouses();
+
+    @Query(value = "SELECT * FROM house WHERE id = :id LIMIT 1", nativeQuery = true)
+    House getSpecificHouseInformations(@Param("id") int id);
+
 
 }

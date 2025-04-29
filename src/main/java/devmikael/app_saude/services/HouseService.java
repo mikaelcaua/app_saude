@@ -13,8 +13,12 @@ public class HouseService {
         this.houseRepository = houseRepository;
     }
 
-    public List<House> getAllHousesForOneHeathAgent(int id) {
-        return houseRepository.getAllHousesForOneHeathAgent(id);
+    public List<House> getAllHouses(){
+        return houseRepository.getAllHouses();
+    }
+
+    public House getSpecificHouseInformations(int id){
+        return houseRepository.getSpecificHouseInformations(id);
     }
 
 }

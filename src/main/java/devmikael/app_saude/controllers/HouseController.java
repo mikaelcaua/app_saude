@@ -1,4 +1,5 @@
 package devmikael.app_saude.controllers;
+
 import org.springframework.web.bind.annotation.RestController;
 import devmikael.app_saude.dtos.HouseWithoutHeathAgentDTO;
 import devmikael.app_saude.services.HouseService;
@@ -15,11 +16,16 @@ public class HouseController {
         this.houseService = houseService;
     }
 
-    @GetMapping("/agents/{id}/houses")
-    public List<HouseWithoutHeathAgentDTO> getAllHousesForOneHeathAgent(@PathVariable int id) {
-        return houseService.getAllHousesForOneHeathAgent(id).stream()
-        .map(HouseWithoutHeathAgentDTO::new)
-        .toList();
+    @GetMapping("/houses")
+    public List<HouseWithoutHeathAgentDTO> getAllHouses() {
+        return houseService.getAllHouses().stream()
+                .map(HouseWithoutHeathAgentDTO::new)
+                .toList();
+    }
+
+    @GetMapping("/houses/{id}")
+    public HouseWithoutHeathAgentDTO getSpecificHouseInformations(@PathVariable int id) {
+        return new HouseWithoutHeathAgentDTO(houseService.getSpecificHouseInformations(id));
     }
 
 }
