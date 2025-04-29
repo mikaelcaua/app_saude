@@ -10,6 +10,8 @@ import devmikael.app_saude.services.HeathAgentService;
 
 
 
+
+
 @RestController
 public class HeathAgentController {
     
@@ -17,20 +19,18 @@ public class HeathAgentController {
     private HeathAgentService heathAgentService;
 
     
-    @GetMapping("heath_agents/{id}/houses")
+    @GetMapping("/heath_agents/{id}/houses")
     public List<HouseWithoutHeathAgentDTO> getAllHousesForOneHeathAgent(@PathVariable int id) {
         return heathAgentService.getAllHousesForOneHeathAgent(id).stream()
                 .map(HouseWithoutHeathAgentDTO::new)
                 .toList();
     }
 
-    @GetMapping("heath_agents")
+    @GetMapping("/heath_agents")
     public List<HeathAgentWithoutPasswordDTO> getAllHeathAgent() {
         return heathAgentService.getAllHeathAgents().stream()
         .map(HeathAgentWithoutPasswordDTO::new)
         .toList();
     }
-
-
     
 }
