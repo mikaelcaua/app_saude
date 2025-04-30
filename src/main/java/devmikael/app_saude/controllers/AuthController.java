@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import devmikael.app_saude.dtos.HeathAgentLoginRequestDTO;
 import devmikael.app_saude.dtos.HeathAgentSignUpRequestDTO;
+import devmikael.app_saude.models.HeathAgent;
+import devmikael.app_saude.security.JwtUtil;
 import devmikael.app_saude.services.HeathAgentService;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,13 +21,13 @@ public class AuthController {
         this.service = service;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody HeathAgentLoginRequestDTO loginRequest) {
-        service.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
-        Map<String, String> body = new HashMap<>();
-        body.put("message", "Login bem-sucedido");
-        return ResponseEntity.ok(body);
-    }
+@PostMapping("/login")
+public ResponseEntity<Map<String, String>> login(@RequestBody HeathAgentLoginRequestDTO loginRequest) {
+    HeathAgent agent = service.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+    String token = JwtUtil.generateToken(loginRequest.getEmail(),agent.getId());
+    return ResponseEntity.ok(Map.of("token", token));
+}
+
 
     @PostMapping("/signUp")
     public ResponseEntity<Map<String, String>> signUp(@RequestBody HeathAgentSignUpRequestDTO entity) {

@@ -7,12 +7,12 @@ import devmikael.app_saude.services.HouseService;
 import devmikael.app_saude.exceptions.HouseNotFoundException;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/houses")
 public class HouseController {
 
     private final HouseService houseService;
@@ -21,14 +21,14 @@ public class HouseController {
         this.houseService = houseService;
     }
 
-    @GetMapping("/houses")
+    @GetMapping("")
     public List<HouseWithoutHeathAgentDTO> getAllHouses() {
         return houseService.getAllHouses().stream()
                 .map(HouseWithoutHeathAgentDTO::new)
                 .toList();
     }
 
-    @GetMapping("/houses/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getSpecificHouseInformations(@PathVariable int id) {
         try {
             House house = houseService.getSpecificHouseInformations(id);
@@ -39,7 +39,7 @@ public class HouseController {
         }
     }
 
-    @PostMapping("/houses")
+    @PostMapping("")
     public ResponseEntity<?> registerHouse(@RequestBody HouseRegisterDTO entity) {
         boolean created = houseService.registerHouse(
                 entity.getLatitude(),
@@ -48,7 +48,7 @@ public class HouseController {
                 entity.getIdHealthAgent());
 
         if (!created) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Já existe uma casa cadastrada nessa localização.");
         }
 

@@ -1,6 +1,8 @@
 package devmikael.app_saude.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import devmikael.app_saude.dtos.HeathAgentSignUpRequestDTO;
 import devmikael.app_saude.exceptions.DuplicateHeathAgentException;
@@ -55,5 +57,15 @@ public class HeathAgentService {
 
     public boolean verifyPassword(String plain, String hashed) {
         return passwordService.verify(plain, hashed);
+    }
+
+    public HeathAgent getHeathAgentById(Integer id){
+        Optional<HeathAgent> heathAgent =  repository.findById(id);
+
+        if(heathAgent.isEmpty()){
+            throw new HeathAgentNotFoundException(id);
+        }
+
+        return heathAgent.get();
     }
 }
