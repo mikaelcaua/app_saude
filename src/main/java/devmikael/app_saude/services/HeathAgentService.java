@@ -55,10 +55,6 @@ public class HeathAgentService {
         return agent;
     }
 
-    public boolean verifyPassword(String plain, String hashed) {
-        return passwordService.verify(plain, hashed);
-    }
-
     public HeathAgent getHeathAgentById(Integer id){
         Optional<HeathAgent> heathAgent =  repository.findById(id);
 

@@ -41,16 +41,11 @@ public class HouseController {
 
     @PostMapping("")
     public ResponseEntity<?> registerHouse(@RequestBody HouseRegisterDTO entity) {
-        boolean created = houseService.registerHouse(
+       houseService.registerHouse(
                 entity.getLatitude(),
                 entity.getLongitude(),
                 entity.getHouseOwner(),
                 entity.getIdHealthAgent());
-
-        if (!created) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Já existe uma casa cadastrada nessa localização.");
-        }
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Cadastro bem-sucedido");
     }

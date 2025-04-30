@@ -1,5 +1,6 @@
 package devmikael.app_saude.services;
 
+import devmikael.app_saude.exceptions.DuplicateHouseLocationException;
 import devmikael.app_saude.exceptions.HouseNotFoundException;
 import devmikael.app_saude.models.House;
 import devmikael.app_saude.repositories.HouseRepository;
@@ -29,7 +30,7 @@ public class HouseService {
 
     public boolean registerHouse(float latitude, float longitude, String houseOwner, Integer idHealthAgent) {
         if (houseRepository.existsByCoordinates(latitude, longitude)) {
-            return false;
+            throw new DuplicateHouseLocationException();
         }
 
         int inserted = houseRepository.addHouse(latitude, longitude, houseOwner, idHealthAgent);
