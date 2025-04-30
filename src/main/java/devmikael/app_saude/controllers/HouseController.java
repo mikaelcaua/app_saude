@@ -4,9 +4,7 @@ import devmikael.app_saude.dtos.HouseRegisterDTO;
 import devmikael.app_saude.dtos.HouseWithoutHeathAgentDTO;
 import devmikael.app_saude.models.House;
 import devmikael.app_saude.services.HouseService;
-import devmikael.app_saude.exceptions.HouseNotFoundException;
 import java.util.List;
-import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,18 +28,13 @@ public class HouseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getSpecificHouseInformations(@PathVariable int id) {
-        try {
-            House house = houseService.getSpecificHouseInformations(id);
-            return ResponseEntity.ok(new HouseWithoutHeathAgentDTO(house));
-        } catch (HouseNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("error", e.getMessage()));
-        }
+        House house = houseService.getSpecificHouseInformations(id);
+        return ResponseEntity.ok(new HouseWithoutHeathAgentDTO(house));
     }
 
     @PostMapping("")
     public ResponseEntity<?> registerHouse(@RequestBody HouseRegisterDTO entity) {
-       houseService.registerHouse(
+        houseService.registerHouse(
                 entity.getLatitude(),
                 entity.getLongitude(),
                 entity.getHouseOwner(),

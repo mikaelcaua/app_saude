@@ -34,9 +34,9 @@ public class GlobalExceptionHandler {
             HttpServletRequest req) {
         Map<String, Object> body = new HashMap<>();
         body.put("error", ex.getMessage());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("status", HttpStatus.CONFLICT.value());
         body.put("path", req.getRequestURI());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(DuplicateHouseLocationException.class)
@@ -44,9 +44,9 @@ public class GlobalExceptionHandler {
             HttpServletRequest req) {
         Map<String, Object> body = new HashMap<>();
         body.put("error", ex.getMessage());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("status", HttpStatus.CONFLICT.value());
         body.put("path", req.getRequestURI());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(AuthenticationFailedException.class)
