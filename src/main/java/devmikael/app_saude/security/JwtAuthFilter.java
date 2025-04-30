@@ -41,7 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         // Libera acesso ao GET /heath_agents/{id}/houses APENAS se for o mesmo id do token
-        if ((request.getMethod().equals("GET") ||request.getMethod().equals("POST"))  && path.matches("^/heath_agents/\\d+/houses$")) {
+        if ((request.getMethod().equals("GET") || request.getMethod().equals("POST"))  && path.matches("^/heath_agents/\\d+/houses$")) {
             String[] parts = path.split("/");
             int pathId = Integer.parseInt(parts[2]);
 

@@ -1,12 +1,10 @@
 package devmikael.app_saude.security;
 
 import java.util.Date;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class JwtUtil {

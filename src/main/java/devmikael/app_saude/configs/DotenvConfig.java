@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class DotenvConfig {
 
     @Bean
-    public Dotenv dotenv() {
+    Dotenv dotenv() {
         return Dotenv.load(); 
     }
 }
