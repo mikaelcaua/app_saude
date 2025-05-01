@@ -9,8 +9,6 @@ public class HouseRegisterDTO {
     @JsonProperty("house_owner")
     private String houseOwner;
 
-    @JsonProperty("id_health_agent")
-    private Integer idHealthAgent;
 
     public float getLatitude() {
         return latitude;
@@ -22,9 +20,5 @@ public class HouseRegisterDTO {
 
     public String getHouseOwner() {
         return houseOwner;
-    }
-
-    public Integer getIdHealthAgent() {
-        return idHealthAgent;
     }
 }

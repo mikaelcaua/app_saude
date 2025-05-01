@@ -14,6 +14,7 @@ import devmikael.app_saude.dtos.HouseRegisterDTO;
 import devmikael.app_saude.dtos.HouseWithoutHeathAgentDTO;
 import devmikael.app_saude.services.HeathAgentService;
 import devmikael.app_saude.services.HouseService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/heath_agents")
@@ -54,12 +55,17 @@ public class HeathAgentController {
     }
 
     @PostMapping("/{id}/houses")
-    public ResponseEntity<?> registerHouse(@RequestBody HouseRegisterDTO entity) {
+    public ResponseEntity<?> registerHouse(
+            HttpServletRequest request,
+            @RequestBody HouseRegisterDTO entity) {
+
+        Integer agentId = (Integer) request.getAttribute("id_heath_agent");
+
         houseService.registerHouse(
                 entity.getLatitude(),
                 entity.getLongitude(),
                 entity.getHouseOwner(),
-                entity.getIdHealthAgent());
+                agentId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Cadastro bem-sucedido");
     }
