@@ -1,5 +1,4 @@
 package devmikael.app_saude.security;
-
 import devmikael.app_saude.exceptions.TokenMissingException;
 import devmikael.app_saude.exceptions.TokenInvalidException;
 import devmikael.app_saude.exceptions.AccessDeniedException;
