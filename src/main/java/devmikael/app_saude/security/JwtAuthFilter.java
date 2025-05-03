@@ -1,4 +1,5 @@
 package devmikael.app_saude.security;
+
 import devmikael.app_saude.exceptions.TokenMissingException;
 import devmikael.app_saude.exceptions.TokenInvalidException;
 import devmikael.app_saude.exceptions.AccessDeniedException;
@@ -39,8 +40,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 throw new TokenInvalidException("Token inválido");
             }
 
+            //isso aqui em heath_agents/id deveria ser um put
             if ((request.getMethod().equals("GET") || request.getMethod().equals("POST"))
-                    && path.matches("^/heath_agents/\\d+/houses$")) {
+                && (path.matches("^/heath_agents/\\d+/houses$") || path.matches("^/heath_agents/\\d+$"))) {
 
                 String[] parts = path.split("/");
                 int pathId = Integer.parseInt(parts[2]);

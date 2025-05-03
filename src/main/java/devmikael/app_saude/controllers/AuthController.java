@@ -27,7 +27,7 @@ public class AuthController {
         HeathAgent agent = service.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         String token = JwtUtil.generateToken(loginRequest.getEmail(), agent.getId());
 
-        HeathAgentLoginResponseDTO response = new HeathAgentLoginResponseDTO(token, agent.getId());
+        HeathAgentLoginResponseDTO response = new HeathAgentLoginResponseDTO(token, agent.getId(), agent.getName(), agent.getEmail());
         return ResponseEntity.ok(response);
     }
 
