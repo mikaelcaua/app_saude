@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import devmikael.app_saude.dtos.HeathAgentSignUpRequestDTO;
 import devmikael.app_saude.exceptions.DuplicateHeathAgentException;
 import devmikael.app_saude.exceptions.HeathAgentNotFoundException;
+import devmikael.app_saude.exceptions.InvalidEmailException;
+import devmikael.app_saude.exceptions.WeakPasswordException;
 import devmikael.app_saude.exceptions.AuthenticationFailedException;
 import devmikael.app_saude.models.HeathAgent;
 import devmikael.app_saude.models.House;
@@ -39,12 +41,33 @@ public class HeathAgentService {
     }
 
     public void registerHeathAgent(HeathAgentSignUpRequestDTO entity) {
-        if (repository.getHeathAgentByEmail(entity.getEmail()).isPresent()) {
-            throw new DuplicateHeathAgentException(entity.getEmail());
-        }
-        String hashed = passwordService.hash(entity.getPassword());
-        repository.addHeathAgent(entity.getName(), entity.getEmail(), hashed);
+    // 1. Validação de e‑mail
+    String email = entity.getEmail();
+    if (email == null || email.isBlank()) {
+        throw new InvalidEmailException("O e‑mail não pode ser vazio.");
     }
+    if (!email.matches("^[\\w\\-\\.]+@([\\w\\-]+\\.)+[\\w\\-]{2,4}$")) {
+        throw new InvalidEmailException("Formato de e‑mail inválido.");
+    }
+
+    // 2. Validação de senha
+    String password = entity.getPassword();
+    if (password == null || password.isBlank()) {
+        throw new WeakPasswordException("A senha não pode ser vazia.");
+    }
+    if (password.length() < 8) {
+        throw new WeakPasswordException("A senha deve ter pelo menos 8 caracteres.");
+    }
+
+    // 3. Verificar duplicação
+    if (repository.getHeathAgentByEmail(email).isPresent()) {
+        throw new DuplicateHeathAgentException(email);
+    }
+
+    // 4. Hash da senha e persistência
+    String hashed = passwordService.hash(password);
+    repository.addHeathAgent(entity.getName(), email, hashed);
+}
 
     public HeathAgent authenticate(String email, String password) {
         HeathAgent agent = repository.getHeathAgentByEmail(email)
